@@ -20,6 +20,7 @@
 		D74597712A64C14200D1D851 /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D745976F2A64C14200D1D851 /* WeatherTableViewCell.xib */; };
 		D74597762A64C16700D1D851 /* HourlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74597742A64C16700D1D851 /* HourlyTableViewCell.swift */; };
 		D74597772A64C16700D1D851 /* HourlyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D74597752A64C16700D1D851 /* HourlyTableViewCell.xib */; };
+		D74597792A64E25B00D1D851 /* WeatherAPIInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = D74597782A64E25B00D1D851 /* WeatherAPIInfo.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		D745976F2A64C14200D1D851 /* WeatherTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherTableViewCell.xib; sourceTree = "<group>"; };
 		D74597742A64C16700D1D851 /* HourlyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyTableViewCell.swift; sourceTree = "<group>"; };
 		D74597752A64C16700D1D851 /* HourlyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourlyTableViewCell.xib; sourceTree = "<group>"; };
+		D74597782A64E25B00D1D851 /* WeatherAPIInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = WeatherAPIInfo.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				D74597432A64BDEB00D1D851 /* Assets.xcassets */,
 				D74597452A64BDEB00D1D851 /* LaunchScreen.storyboard */,
 				D74597482A64BDEB00D1D851 /* Info.plist */,
+				D74597782A64E25B00D1D851 /* WeatherAPIInfo.plist */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				D74597772A64C16700D1D851 /* HourlyTableViewCell.xib in Resources */,
 				D74597472A64BDEB00D1D851 /* LaunchScreen.storyboard in Resources */,
 				D74597442A64BDEB00D1D851 /* Assets.xcassets in Resources */,
+				D74597792A64E25B00D1D851 /* WeatherAPIInfo.plist in Resources */,
 				D74597422A64BDEA00D1D851 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

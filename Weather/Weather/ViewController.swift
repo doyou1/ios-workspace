@@ -17,7 +17,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet var table: UITableView!
     
-    var models = [Weather]()
+    var currentModel: CurrentWeather?
+    var forecastModels = [ForecastWeather]()
+    var hourlyModels = [HourlyWeather]()
 
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
@@ -56,18 +58,57 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func requestWeatherForLocation() {
         guard let currentLocation = currentLocation else { return }
-        
         let long = currentLocation.coordinate.longitude
-        let lat = currentLocation.coordinate.longitude
-        
-        print("\(String(describing: long)), \(String(describing: lat))")
-        
-        
+        let lat = currentLocation.coordinate.latitude
+
+        let headers = [
+            "X-RapidAPI-Key": Bundle.main.WEATHER_API_KEY,
+            "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com"
+        ]
+
+        let request = NSMutableURLRequest(url: NSURL(string: "https://weatherapi-com.p.rapidapi.com/forecast.json?q=\(lat)%2C\(long)&days=3")! as URL,
+                                                cachePolicy: .useProtocolCachePolicy,
+                                            timeoutInterval: 10.0)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            // validation
+            guard let data = data, error == nil else {
+                print(error as Any)
+                return
+            }
+            
+            // Convert data to models
+            var json: WeatherResponse?
+            do {
+                json = try JSONDecoder().decode(WeatherResponse.self, from: data)
+            }
+            catch {
+                print("convert to json error: \(error)")
+            }
+            
+            guard let result = json else { return }
+//            print(result.current.temp_c)
+//            print(result.current.condition)
+//
+            // Update user interface
+            
+            self.currentModel = CurrentWeather(updatedDate: result.current.last_updated, temp: result.current.temp_c, condition: result.current.condition)
+            
+            for item in result.forecast.forecastday {
+                self.forecastModels.append(ForecastWeather(date: item.date, minTemp: item.day.mintemp_c, maxTemp: item.day.maxtemp_c, condition: item.day.condition))
+            }
+            print("current: \(self.currentModel)")
+            print("forecast: \(self.forecastModels)")
+        })
+        dataTask.resume()
     }
     
     // Table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models.count
+        return forecastModels.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -76,6 +117,86 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
 }
 
-struct Weather {
+struct CurrentWeather {
+    let updatedDate: String
+    let temp: Float
+    let condition: Condition
+}
+
+struct ForecastWeather {
+    let date: String
+    let minTemp: Float
+    let maxTemp: Float
+    let condition: Condition
+}
+
+struct HourlyWeather {
     
+}
+
+struct WeatherResponse: Codable {
+    let location: Location
+    let current: Current
+    let forecast: Forecast
+}
+
+struct Location: Codable {
+    let name: String
+    let region: String
+    let country: String
+    let lat: Float
+    let lon: Float
+    let tz_id: String
+    let localtime_epoch: CLong
+    let localtime: String
+}
+
+struct Current: Codable {
+    let last_updated_epoch: CLong
+    let last_updated: String
+    let temp_c: Float
+    let temp_f: Float
+    let is_day: Int
+    let condition: Condition
+}
+
+struct Condition: Codable {
+    let text: String
+    let icon: String
+    let code: Int
+}
+
+struct Forecast: Codable {
+    let forecastday: [ForecastDay]
+}
+
+struct ForecastDay: Codable {
+    let date: String
+    let date_epoch: CLong
+    let day: Day
+}
+
+struct Day: Codable {
+    let maxtemp_c: Float
+    let mintemp_c: Float
+    let avgtemp_c: Float
+    let condition: Condition
+}
+
+
+extension Bundle {
+    
+    // 생성한 .plist 파일 경로 불러오기
+    var WEATHER_API_KEY: String {
+        guard let file = self.path(forResource: "WeatherAPIInfo", ofType: "plist") else { return "" }
+        
+        // .plist를 딕셔너리로 받아오기
+        guard let resource = NSDictionary(contentsOfFile: file) else { return "" }
+        
+        // 딕셔너리에서 값 찾기
+        guard let key = resource["WEATHER_API_KEY"] as? String else {
+            fatalError("WEATHER_API_KEY error")
+        }
+        return key
+    }
 }
