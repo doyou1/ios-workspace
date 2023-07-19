@@ -20,7 +20,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var currentModel: CurrentWeather?
     var forecastModels = [ForecastWeather]()
     var hourlyModels = [HourlyWeather]()
-
+    
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     
@@ -29,18 +29,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         
         // Register 2 cells
-        table.register(HourlyTableViewCell.nib(), forCellReuseIdentifier: HourlyTableViewCell.identifier)
         table.register(WeatherTableViewCell.nib(), forCellReuseIdentifier: WeatherTableViewCell.identifier)
+        table.register(HourlyTableViewCell.nib(), forCellReuseIdentifier: HourlyTableViewCell.identifier)
         
         table.delegate = self
         table.dataSource = self
+        
+        print("viewDidLoad")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        print("viewDidAppear")
         setupLocation()
     }
-
+    
     // Location
     func setupLocation() {
         locationManager.delegate = self
@@ -60,18 +63,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         guard let currentLocation = currentLocation else { return }
         let long = currentLocation.coordinate.longitude
         let lat = currentLocation.coordinate.latitude
-
+        
         let headers = [
             "X-RapidAPI-Key": Bundle.main.WEATHER_API_KEY,
             "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com"
         ]
-
+        
         let request = NSMutableURLRequest(url: NSURL(string: "https://weatherapi-com.p.rapidapi.com/forecast.json?q=\(lat)%2C\(long)&days=3")! as URL,
-                                                cachePolicy: .useProtocolCachePolicy,
-                                            timeoutInterval: 10.0)
+                                          cachePolicy: .useProtocolCachePolicy,
+                                          timeoutInterval: 10.0)
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = headers
-
+        
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             // validation
@@ -90,18 +93,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
             guard let result = json else { return }
-//            print(result.current.temp_c)
-//            print(result.current.condition)
-//
-            // Update user interface
-            
             self.currentModel = CurrentWeather(updatedDate: result.current.last_updated, temp: result.current.temp_c, condition: result.current.condition)
             
             for item in result.forecast.forecastday {
                 self.forecastModels.append(ForecastWeather(date: item.date, minTemp: item.day.mintemp_c, maxTemp: item.day.maxtemp_c, condition: item.day.condition))
             }
-            print("current: \(self.currentModel)")
-            print("forecast: \(self.forecastModels)")
+            //            print("current: \(self.currentModel)")
+            //            print("forecast: \(self.forecastModels)")
+            
+            // Update user interface
+            DispatchQueue.main.async {
+                self.table.reloadData()
+            }
+            
         })
         dataTask.resume()
     }
@@ -110,9 +114,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return forecastModels.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as! WeatherTableViewCell
+        cell.configure(with: forecastModels[indexPath.row])
+        return cell
     }
     
 }
