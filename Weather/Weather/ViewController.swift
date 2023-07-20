@@ -94,13 +94,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
             guard let result = json else { return }
+            
             self.currentModel = CurrentWeather(updatedDate: result.current.last_updated, temp: result.current.temp_c, condition: result.current.condition, region: result.location.region, country: result.location.country)
             
             for item in result.forecast.forecastday {
                 self.forecastModels.append(ForecastWeather(date: item.date, minTemp: item.day.mintemp_c, maxTemp: item.day.maxtemp_c, condition: item.day.condition))
             }
-            //            print("current: \(self.currentModel)")
-            //            print("forecast: \(self.forecastModels)")
+            
+            if(result.forecast.forecastday.count > 0) {
+                // today weather by hour
+                let hour = result.forecast.forecastday[0].hour
+                for item in hour {
+                    self.hourlyModels.append(HourlyWeather(dateEpoch: item.time_epoch, date: item.time, temp: item.temp_c, condition: item.condition))
+                }
+            }
             
             // Update user interface
             DispatchQueue.main.async {
@@ -136,16 +143,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return headerView
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     // Table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            // 1 cell that is collectiontableviewcell
+            return 1
+        }
+        
         return forecastModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: HourlyTableViewCell.identifier, for: indexPath) as! HourlyTableViewCell
+            cell.configure(with: hourlyModels)
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: WeatherTableViewCell.identifier, for: indexPath) as! WeatherTableViewCell
         cell.configure(with: forecastModels[indexPath.row])
         cell.backgroundColor = UIColor(red: 52/255.0, green: 109/255.0, blue: 179/255.0, alpha: 1)
         return cell
+
     }
     
 }
@@ -166,7 +189,10 @@ struct ForecastWeather {
 }
 
 struct HourlyWeather {
-    
+    let dateEpoch: CLong
+    let date: String
+    let temp: Float
+    let condition: Condition
 }
 
 struct WeatherResponse: Codable {
@@ -209,6 +235,7 @@ struct ForecastDay: Codable {
     let date: String
     let date_epoch: CLong
     let day: Day
+    let hour: [Hour]
 }
 
 struct Day: Codable {
@@ -216,6 +243,13 @@ struct Day: Codable {
     let mintemp_c: Float
     let avgtemp_c: Float
     let condition: Condition
+}
+
+struct Hour: Codable {
+    let time: String
+    let time_epoch: CLong
+    let condition: Condition
+    let temp_c: Float
 }
 
 
