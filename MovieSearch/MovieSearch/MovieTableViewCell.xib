@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="180" id="KGk-i7-Jjw" customClass="MovieTableViewCell" customModule="MovieSearch" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="459" height="180"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="459" height="180"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kCC-EM-GCx">
+                        <rect key="frame" x="10" y="10" width="200" height="147"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="uIr-D8-9IR"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Amg-Eo-q08">
+                        <rect key="frame" x="230" y="10" width="219" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="Xhk-fy-R1c"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDO-Av-Zfd">
+                        <rect key="frame" x="230" y="100" width="219" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="YHQ-is-Zpp"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Amg-Eo-q08" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="2IH-Q2-YGL"/>
+                    <constraint firstItem="kCC-EM-GCx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Cup-bE-His"/>
+                    <constraint firstAttribute="trailing" secondItem="PDO-Av-Zfd" secondAttribute="trailing" constant="10" id="GqJ-Tx-Z0w"/>
+                    <constraint firstAttribute="bottom" secondItem="kCC-EM-GCx" secondAttribute="bottom" constant="10" id="H2C-B0-UUl"/>
+                    <constraint firstItem="kCC-EM-GCx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="KX3-Rz-b4n"/>
+                    <constraint firstAttribute="bottom" secondItem="PDO-Av-Zfd" secondAttribute="bottom" constant="20" id="TJd-wA-sbs"/>
+                    <constraint firstItem="PDO-Av-Zfd" firstAttribute="leading" secondItem="kCC-EM-GCx" secondAttribute="trailing" constant="20" id="gwq-Mc-Ofp"/>
+                    <constraint firstItem="Amg-Eo-q08" firstAttribute="leading" secondItem="kCC-EM-GCx" secondAttribute="trailing" constant="20" id="kxB-dW-6IQ"/>
+                    <constraint firstAttribute="trailing" secondItem="Amg-Eo-q08" secondAttribute="trailing" constant="10" id="lvn-wV-ghE"/>
+                    <constraint firstItem="PDO-Av-Zfd" firstAttribute="top" secondItem="Amg-Eo-q08" secondAttribute="bottom" constant="10" id="mMs-zi-iZC"/>
+                    <constraint firstAttribute="bottom" secondItem="kCC-EM-GCx" secondAttribute="bottom" constant="10" id="szI-0s-u8z"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="posterImage" destination="kCC-EM-GCx" id="2gd-R2-zUu"/>
+                <outlet property="titleLabel" destination="Amg-Eo-q08" id="YMh-eP-p3v"/>
+                <outlet property="yearLabel" destination="PDO-Av-Zfd" id="2oP-e5-lbl"/>
+            </connections>
+            <point key="canvasLocation" x="34.351145038167935" y="34.507042253521128"/>
+        </tableViewCell>
+    </objects>
+</document>
