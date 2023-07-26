@@ -31,8 +31,16 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Reminder" id="x6X-2a-VcE">
-                        <barButtonItem key="leftBarButtonItem" title="Test" id="3Il-Un-X7G"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="qkJ-HQ-j6C"/>
+                        <barButtonItem key="leftBarButtonItem" title="Test" id="3Il-Un-X7G">
+                            <connections>
+                                <action selector="didTabTest" destination="BYZ-38-t0r" id="aCz-9h-X6x"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="qkJ-HQ-j6C">
+                            <connections>
+                                <action selector="didTabAdd" destination="BYZ-38-t0r" id="09W-eu-5ky"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="table" destination="6xa-Oe-AF6" id="dpe-3d-xEo"/>
@@ -42,16 +50,55 @@
             </objects>
             <point key="canvasLocation" x="1057.2519083969464" y="-27.464788732394368"/>
         </scene>
-        <!--View Controller-->
+        <!--Add View Controller-->
         <scene sceneID="aXs-pr-jiV">
             <objects>
-                <viewController id="Q8v-Eg-Ibk" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="add" id="Q8v-Eg-Ibk" customClass="AddViewController" customModule="Reminder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="j86-AS-eMe">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Title..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Dp-Y4-r38">
+                                <rect key="frame" x="10" y="69" width="373" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="ASd-HS-qQE"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="52" id="L8d-gN-evN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Body..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nXP-UQ-DiP">
+                                <rect key="frame" x="10" y="141" width="373" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="AKf-kI-5YQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="UJf-L8-oDs">
+                                <rect key="frame" x="10" y="203" width="373" height="605"/>
+                            </datePicker>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="bX1-hF-tqe"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="8Dp-Y4-r38" firstAttribute="top" secondItem="bX1-hF-tqe" secondAttribute="top" constant="10" id="9a3-MI-8LJ"/>
+                            <constraint firstItem="bX1-hF-tqe" firstAttribute="trailing" secondItem="nXP-UQ-DiP" secondAttribute="trailing" constant="10" id="Dri-yQ-s2f"/>
+                            <constraint firstItem="bX1-hF-tqe" firstAttribute="trailing" secondItem="8Dp-Y4-r38" secondAttribute="trailing" constant="10" id="RSV-tU-70E"/>
+                            <constraint firstItem="UJf-L8-oDs" firstAttribute="top" secondItem="nXP-UQ-DiP" secondAttribute="bottom" constant="10" id="cOz-Gk-49b"/>
+                            <constraint firstItem="8Dp-Y4-r38" firstAttribute="leading" secondItem="bX1-hF-tqe" secondAttribute="leading" constant="10" id="mYe-53-4HG"/>
+                            <constraint firstAttribute="trailing" secondItem="UJf-L8-oDs" secondAttribute="trailing" constant="10" id="nQV-8w-F4m"/>
+                            <constraint firstItem="UJf-L8-oDs" firstAttribute="leading" secondItem="j86-AS-eMe" secondAttribute="leading" constant="10" id="rN6-Be-8zl"/>
+                            <constraint firstItem="nXP-UQ-DiP" firstAttribute="top" secondItem="8Dp-Y4-r38" secondAttribute="bottom" constant="20" id="roR-Ty-Q6k"/>
+                            <constraint firstItem="bX1-hF-tqe" firstAttribute="bottom" secondItem="UJf-L8-oDs" secondAttribute="bottom" constant="10" id="tws-DI-CDo"/>
+                            <constraint firstItem="nXP-UQ-DiP" firstAttribute="leading" secondItem="bX1-hF-tqe" secondAttribute="leading" constant="10" id="xfn-kR-U8S"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bodyField" destination="nXP-UQ-DiP" id="jgB-gP-svF"/>
+                        <outlet property="datePicker" destination="UJf-L8-oDs" id="h13-Xl-6HZ"/>
+                        <outlet property="titleField" destination="8Dp-Y4-r38" id="6I7-WJ-SNC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zsR-QD-VLB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

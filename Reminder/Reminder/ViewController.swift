@@ -5,6 +5,7 @@
 //  Created by simjh on 2023/07/25.
 //
 
+import UserNotifications
 import UIKit
 
 class ViewController: UIViewController {
@@ -23,9 +24,44 @@ class ViewController: UIViewController {
 
     
     @IBAction func didTabAdd() {
+        // show add vc
+        guard let vc = storyboard?.instantiateViewController(identifier: "add") as? AddViewController else { return }
         
+        vc.title = "New Reminder"
+        vc.navigationItem.largeTitleDisplayMode = .never
+        vc.completion = { title, body, date in
+            
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func didTabTest() {
+        // fire test notification
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { success, error in
+            if success {
+                self.schduleTest()
+            } else if error != nil {
+                print("error: \(error)")
+            }
+        })
     }
 
+    func schduleTest() {
+        let content = UNMutableNotificationContent()
+        content.title = "Hello World"
+        content.sound = .default
+        content.body = "My long long body. My long long body. My long long body. My long long body."
+        
+        let targetDate = Date().addingTimeInterval(10)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: targetDate), repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "some_long_id", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
+            if error != nil {
+                 print("error: \(error)")
+            }
+        })
+    }
 }
 
 extension ViewController: UITableViewDelegate {
