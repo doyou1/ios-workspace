@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddViewController: UIViewController {
+class AddViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var titleField: UITextField!
     @IBOutlet var bodyField: UITextField!
@@ -17,6 +17,8 @@ class AddViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        titleField.delegate = self
+        bodyField.delegate = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(didTapSave))
     }
     
@@ -27,5 +29,12 @@ class AddViewController: UIViewController {
             
             completion?(titleText, bodyText, targetDate)
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
+        
     }
 }

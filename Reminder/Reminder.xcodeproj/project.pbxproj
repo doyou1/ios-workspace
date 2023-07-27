@@ -17,7 +17,6 @@
 		D7D8F1CE2A6F732A00F7B1B8 /* ReminderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D8F1CD2A6F732A00F7B1B8 /* ReminderUITests.swift */; };
 		D7D8F1D02A6F732A00F7B1B8 /* ReminderUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D8F1CF2A6F732A00F7B1B8 /* ReminderUITestsLaunchTests.swift */; };
 		D7D8F1DE2A709F5400F7B1B8 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D8F1DC2A709F5400F7B1B8 /* AddViewController.swift */; };
-		D7D8F1DF2A709F5400F7B1B8 /* AddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7D8F1DD2A709F5400F7B1B8 /* AddViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +51,6 @@
 		D7D8F1CD2A6F732A00F7B1B8 /* ReminderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderUITests.swift; sourceTree = "<group>"; };
 		D7D8F1CF2A6F732A00F7B1B8 /* ReminderUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D7D8F1DC2A709F5400F7B1B8 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
-		D7D8F1DD2A709F5400F7B1B8 /* AddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +109,6 @@
 				D7D8F1B72A6F732A00F7B1B8 /* LaunchScreen.storyboard */,
 				D7D8F1BA2A6F732A00F7B1B8 /* Info.plist */,
 				D7D8F1DC2A709F5400F7B1B8 /* AddViewController.swift */,
-				D7D8F1DD2A709F5400F7B1B8 /* AddViewController.xib */,
 			);
 			path = Reminder;
 			sourceTree = "<group>";
@@ -239,7 +236,6 @@
 			files = (
 				D7D8F1B92A6F732A00F7B1B8 /* LaunchScreen.storyboard in Resources */,
 				D7D8F1B62A6F732A00F7B1B8 /* Assets.xcassets in Resources */,
-				D7D8F1DF2A709F5400F7B1B8 /* AddViewController.xib in Resources */,
 				D7D8F1B42A6F732900F7B1B8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
